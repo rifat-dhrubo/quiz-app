@@ -1,11 +1,14 @@
+import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => {
   return (
-    <nav className="flex w-full bg-baseColor justify-start px-12 py-4">
-      <h1 className="text-lg sm:text-xl text-secondary font-bold">
-        Britannica Quiz
-      </h1>
+    <nav className="flex justify-start w-full px-12 py-4 bg-baseColor">
+      <Link passHref href="/">
+        <a className="text-lg font-bold sm:text-xl text-secondary">
+          Britannica Quiz
+        </a>
+      </Link>
     </nav>
   );
 };

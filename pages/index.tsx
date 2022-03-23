@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import { HiArrowRight } from 'react-icons/hi';
 import { LinkButton } from '../components/Button';
+
 const Home: NextPage = () => {
   return (
     <div className="min-h-screen bg-base">
