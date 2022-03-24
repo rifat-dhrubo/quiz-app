@@ -18,11 +18,8 @@ const Button = ({
   iconNode,
   ...rest
 }: ButtonProps) => {
-  const baseClasses =
-    'inline-flex justify-center items-center px-12 cursor-pointer py-3 text-lg bg-primary text-baseColor rounded font-bold group focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-primary';
-
   return (
-    <button {...rest} type={type} className={`${baseClasses} ${className}`}>
+    <button {...rest} type={type} className={`btn group ${className}`}>
       {textNode}
       {iconNode}
     </button>
@@ -37,11 +34,8 @@ export const LinkButton = ({
   iconNode,
   ...rest
 }: LinkProps) => {
-  const baseClasses =
-    'inline-flex justify-center items-center px-12 cursor-pointer py-3 text-lg bg-primary text-baseColor rounded font-bold group focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-primary';
-
   return (
-    <a {...rest} className={`${baseClasses} ${className}`}>
+    <a {...rest} className={`btn group ${className}`}>
       {textNode}
       {iconNode}
     </a>

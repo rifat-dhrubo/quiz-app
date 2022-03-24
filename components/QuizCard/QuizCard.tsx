@@ -1,10 +1,12 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
-import { HiPlay } from 'react-icons/hi';
+import { HiArrowRight, HiPlay, HiX } from 'react-icons/hi';
 import { useTransition, animated, config } from 'react-spring';
 import { Quiz } from '../../types/quiz';
-import Button from '../Button';
+import Button, { LinkButton } from '../Button';
+import Modal from '../Modal';
 
 type Props = {
   quiz: Quiz;
@@ -12,8 +14,6 @@ type Props = {
 
 const QuizCard = ({ quiz }: Props) => {
   const [showModal, setShowModal] = React.useState(false);
-  const AnimatedDialogOverlay = animated(DialogOverlay);
-  const AnimatedDialogContent = animated(DialogContent);
 
   const transitions = useTransition(showModal, {
     from: { opacity: 0 },
@@ -61,31 +61,48 @@ const QuizCard = ({ quiz }: Props) => {
         </div>
       </div>
 
-      {transitions((styles, item) =>
-        item ? (
-          <AnimatedDialogOverlay
-            className="absolute top-0 w-full h-full "
-            style={{ opacity: styles.opacity }}
-          >
-            <AnimatedDialogContent
-              aria-labelledby="dialog-title"
-              className="absolute w-full max-w-xl transform -translate-x-1/2 -translate-y-1/2 shadow-md bg-baseColor top-1/2 left-1/2"
-              style={{
-                opacity: styles.opacity,
-              }}
-            >
-              <button onClick={() => setShowModal(false)}>Close Dialog</button>
-              <h2 id="dialog-title">{quiz.browserTitle}</h2>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: quiz.introduction,
-                }}
-              />
-              <Button type="button" textNode={"Let's go"} />
-            </AnimatedDialogContent>
-          </AnimatedDialogOverlay>
-        ) : null,
-      )}
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <div className="flex justify-end">
+          <Button
+            type="button"
+            className="p-1 ml-auto bg-red-500 rounded-full focus:ring-red-500"
+            iconNode={<HiX className="w-5 h-5 text-baseColor" />}
+            onClick={() => setShowModal(false)}
+          />
+        </div>
+        <h2
+          id="dialog-title"
+          className="mt-2 mb-4 text-lg font-bold md:text-xl text-secondary"
+        >
+          {quiz.browserTitle}
+        </h2>
+        <p
+          className="mb-4 text-base md:text-lg text-tertiary"
+          dangerouslySetInnerHTML={{
+            __html: quiz.introduction,
+          }}
+        />
+        <div>
+          <p className="text-base text-tertiary">
+            <span className="font-bold">Questions:</span> {quiz.numOfQuestions}
+          </p>
+          <p className="text-base text-tertiary">
+            <span className="font-bold">Time: </span>
+            {quiz.seconds}s per question
+          </p>
+        </div>
+        <div className="flex justify-end">
+          <Link href="/game" passHref>
+            <LinkButton
+              type="button"
+              textNode={"Let's go"}
+              iconNode={
+                <HiArrowRight className="w-5 h-5 ml-2 transition-all text-baseColor transform-gpu group-hover:translate-x-2 group-hover:scale-105 " />
+              }
+            />
+          </Link>
+        </div>
+      </Modal>
     </>
   );
 };
