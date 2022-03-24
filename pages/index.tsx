@@ -22,10 +22,10 @@ const Home: NextPage = () => {
             Delightful Quizzes in the Web
           </h2>
           <p className="mt-8 text-lg md:text-2xl text-tertiary">
-            Not sure what colors to use in your designs or where to use them?
-            Happy Hues is a color palette inspiration site that acts as a real
-            world example as to how the colors could be used in your design
-            projects.
+            Are you confident in your knowledge of pop culture and superheroes?
+            Brititannica Quiz is a delightful online quiz platform. Take quizzes
+            about your favorite pop culture topic. You can even take quizzes on
+            your favorite superheroes. So, what are you waiting for?
           </p>
           <div className="flex justify-center mt-8 md:justify-start ">
             <Link passHref href="/quiz">

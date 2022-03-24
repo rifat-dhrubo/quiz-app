@@ -2,10 +2,12 @@ import Link from 'next/link';
 import React from 'react';
 import { HiArrowUp } from 'react-icons/hi';
 import { useGameStore } from '../../store/gameStore';
-import { Question } from '../../types/questions';
-import Button, { LinkButton } from '../Button';
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti';
+import { LinkButton } from '../Button';
 
 const Result = () => {
+  const { width, height } = useWindowSize();
   const getGameResult = useGameStore(
     React.useCallback((state) => state.getGameResult(), []),
   );
@@ -32,6 +34,9 @@ const Result = () => {
           }
         />
       </Link>
+      {getGameResult === 'Won' ? (
+        <Confetti width={width} height={height} />
+      ) : null}
     </div>
   );
 };

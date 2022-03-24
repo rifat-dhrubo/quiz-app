@@ -40,7 +40,16 @@ type GameStore = {
   setGameResponse: (arg: GameScorePayload) => void;
   getGameResult: () => 'Won' | 'Lost';
   getGameScore: () => number;
+  resetStore: (questions: Question[]) => void;
 };
+
+const initialState = {
+  response: {},
+  totalPoints: 0,
+  totalScore: 0,
+  winningPoints: 0,
+  result: 'Lost',
+} as const;
 
 const getGameScore = (level: keyof typeof GameScoreValue) => {
   return GameScoreValue[level];
@@ -49,11 +58,7 @@ const getGameScore = (level: keyof typeof GameScoreValue) => {
 export const useGameStore = create<GameStore>(
   devtools((set, get) => ({
     game: {
-      response: {},
-      totalPoints: 0,
-      totalScore: 0,
-      winningPoints: 0,
-      result: 'Lost',
+      ...initialState,
     },
     getStore: () => get(),
     calculateTotalPoints: (questions: Question[]) =>
@@ -67,6 +72,8 @@ export const useGameStore = create<GameStore>(
           }, 0);
           draft.game.winningPoints = draft.game.totalPoints * 0.6;
         }),
+        false,
+        'calculateTotalPoints',
       ),
     setGameResponse: ({
       questionId,
@@ -92,8 +99,24 @@ export const useGameStore = create<GameStore>(
           draft.game.result =
             newTotalScore >= draft.game.winningPoints ? 'Won' : 'Lost';
         }),
+        false,
+        'setGameResponse',
       ),
     getGameResult: () => get().game.result,
     getGameScore: () => get().game.totalScore,
+    resetStore: (questions: Question[]) => {
+      set(
+        () => ({
+          game: initialState,
+        }),
+        false,
+        'resetStore',
+      );
+      set(
+        (state) => state.calculateTotalPoints(questions),
+        false,
+        'calculateTotalPoints',
+      );
+    },
   })),
 );

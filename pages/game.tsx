@@ -18,9 +18,12 @@ const Game = ({ data }: Props) => {
   const calculateTotalPoints = useGameStore(
     React.useCallback((state) => state.calculateTotalPoints, []),
   );
+  const resetStore = useGameStore(
+    React.useCallback((state) => state.resetStore, []),
+  );
   React.useEffect(() => {
-    calculateTotalPoints(data);
-  }, [data, calculateTotalPoints]);
+    resetStore(data);
+  }, [data, resetStore]);
 
   return (
     <div className="flex flex-col min-h-screen bg-baseColor">
