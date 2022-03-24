@@ -10,3 +10,9 @@ body,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
 }
+
+@layer components {
+  .btn {
+    @apply inline-flex justify-center items-center px-12 cursor-pointer py-3 text-lg bg-primary text-baseColor rounded font-bold focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-primary transition-all transform hover:-translate-y-[1px];
+  }
+}

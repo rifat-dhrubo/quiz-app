@@ -1,8 +1,6 @@
 import { GetStaticProps } from 'next';
 import { promises as fs } from 'fs';
 import React from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
-import { useTransition, animated, config } from 'react-spring';
 import { Quiz } from '../types/quiz';
 import path from 'path';
 import getConfig from 'next/config';
